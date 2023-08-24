@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2021"
 description ="pwhide encrypts passwords using the crate name as secret. This is marginal better then plain text. pwhide-lib is used to decode it a program"
 
+categories=["command-line-utilities","cryptography"]
+keywords=["password","encryption","utility"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
