@@ -9,11 +9,11 @@ use sha2::{Digest, Sha256};
 
 /// The macro is used for easy decrpytion of password
 /// it expands to
-/// pwdecrpyt(env!("CARGO_PACKAGE_NAME"),parameter)
+/// pwdecrpyt(env!("CARGO_PKG_NAME"),parameter)
 #[macro_export]
 macro_rules! pwdecrypt {
     ($value:expr) => {
-        cargo_pwhide::pwdecrypt(env!("CARGO_PACKAGE_NAME"), $value)
+        cargo_pwhide::pwdecrypt(env!("CARGO_PKG_NAME"), $value)
     };
 }
 

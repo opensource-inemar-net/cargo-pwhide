@@ -16,7 +16,7 @@ The solution contains of two parts:
 - cargo subcommand
 - lib to decrypt
 
-Install the cargo subcommand with
+# Install the cargo subcommand with
 cargo install cargo-pwhide
 
 This allow to encrypt/decrypt password with
@@ -31,7 +31,12 @@ The secret for encryption and decrpytion is the name of the crate.
 Each encrytpion run provides a different output, because a random nounce is selected
 Encryption is done using Chacha20poly1305 and base62 encoding
 
-The lib provides a function
+# The lib provides a function to decrypt
+
+install wit with
+cargo-pwhide = {version="*", feature=["lib"]}
+This includes only the minimum number of dependencies
+
 
 pwdecrypt (secret:Into<String>,enrypted_data:Into<String>) -> String
 
