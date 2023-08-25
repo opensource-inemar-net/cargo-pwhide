@@ -23,6 +23,7 @@ name = "cargo_pwhide"
 [[bin]]
 path="src/main.rs"
 name = "cargo-pwhide"
+doc=false
 
 
 [features]

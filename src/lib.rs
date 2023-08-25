@@ -1,3 +1,53 @@
+//! cargo-pwhide provides tooling to hide passwords  
+//!     
+//!     
+//! **This doesn't provide any security**
+//! 
+//! It consists of a cargo subcommand to encrypt passwords and a simple macro for decrypting
+//! 
+//! # Encryption
+//! 
+//! install the cargo subcommand with:  
+//! **cargo install cargo-pwhide**
+//! 
+//! Then go to the root of your project where the Cargo.toml is   
+//! and encrypt a password
+//! 
+//! **cargo pwhide encrypt MySecretPassword**
+//! 
+//! This will deliver an encrypted data for example:
+//! 
+//! QDc2rswTJRHrFEgT2Ech77xuScNGfGGKFIJq6MJcI1lKg1hfaowsg5
+//! 
+//! Use this in configuration files on in the command code
+//! 
+//! # Decryption in the program
+//! 
+//! Add to your Config.toml   
+//! ```
+//! cargo-pwhide = {version="*", feature=["lib"], default-features = false}**
+//! ``` 
+//!    
+//! This reduces the number of dependencies and is great for compile time :)
+//! 
+//! For decryption just use the provided macro
+//! 
+//! ```
+//! use cargo_pwhide::pwdecrypt;    
+//! let cleartext:Result<String,anyhow::Error>=pwdecrypt!("QDc2rswTJRHrFEgT2Ech77xuScNGfGGKFIJq6MJcI1lKg1hfaowsg5");  
+//! ```
+//! 
+//! and automatically decrpytion is done
+//! 
+//! # how does it work?
+//! 
+//! The tool is using the package name as secret
+//! The password is encrypted using ChaCha20Poly1305 and a random nounce
+//! 
+//! This doesn't provide any security but is better compared to storing plain text passwords in version control
+//! 
+
+
 use anyhow::anyhow;
 use chacha20poly1305::aead::generic_array::GenericArray;
 use chacha20poly1305::aead::Aead;
@@ -7,9 +57,25 @@ use chacha20poly1305::ChaCha20Poly1305;
 use chacha20poly1305::KeyInit;
 use sha2::{Digest, Sha256};
 
-/// The macro is used for easy decrpytion of password
-/// it expands to
-/// pwdecrpyt(env!("CARGO_PKG_NAME"),parameter)
+
+
+
+
+/// The macro is used for easy decrpytion of password  
+/// 
+/// 
+/// The macro expands to    
+/// pwdecrpyt(env!("CARGO_PKG_NAME"),parameter) -> String
+/// 
+/// # Example
+/// ```  
+/// use cargo_pwhide::pwdecrypt;    
+/// let cleartext:Result<String,anyhow::Error>=pwdecrypt!("QDc2rswTJRHrFEgT2Ech77xuScNGfGGKFIJq6MJcI1lKg1hfaowsg5");     
+/// ```
+///     
+/// it returns are result with the string if decryption was possible  
+/// The secret is the package name   
+/// 
 #[macro_export]
 macro_rules! pwdecrypt {
     ($value:expr) => {
@@ -17,7 +83,7 @@ macro_rules! pwdecrypt {
     };
 }
 
-/// This is used to decrpyt the passowrd encrypted with subcommand tools cargo pwhide encrypt
+/// This is used to decrpyt the password encrypted with subcommand tools cargo pwhide encrypt
 pub fn pwdecrypt(
     packagename: impl Into<String>,
     data: impl Into<String>,
@@ -59,6 +125,8 @@ pub fn pwdecrypt(
     }
 }
 
+
+/// This is used to encrpyt a password function used by subcommand tools cargo pwhide encrypt
 pub fn pwencrypt(
     packagename: impl Into<String>,
     data: impl Into<String>,
