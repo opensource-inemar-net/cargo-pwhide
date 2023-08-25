@@ -7,7 +7,6 @@ use chacha20poly1305::ChaCha20Poly1305;
 use chacha20poly1305::KeyInit;
 use sha2::{Digest, Sha256};
 
-
 /// The macro is used for easy decrpytion of password
 /// it expands to
 /// pwdecrpyt(env!("CARGO_PACKAGE_NAME"),parameter)
@@ -17,7 +16,6 @@ macro_rules! pwdecrypt {
         cargo_pwhide::pwdecrypt(env!("CARGO_PACKAGE_NAME"), $value)
     };
 }
-
 
 /// This is used to decrpyt the passowrd encrypted with subcommand tools cargo pwhide encrypt
 pub fn pwdecrypt(

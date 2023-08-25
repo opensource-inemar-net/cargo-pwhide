@@ -10,13 +10,17 @@ fn main() {
     .about("pwhide encrypts passwords using the crate name as secret. This is marginal better then plain text. pwhide-lib is used to decode it a program")
     .bin_name("cargo pwhide")
     .propagate_version(true)
-//        .subcommand_required(true)
-.arg_required_else_help(true)
-.arg(Arg::new("action")
-.value_parser(["encrypt","decrypt"]))
-    .arg(Arg::new("password").help("The data which should be encrypted or decrypted"))
+    .arg_required_else_help(true)
+    .arg(Arg::new("cargosubcommand")
+        .help("When wunning as cargo subcommand this contains the command - not used")
+    )
+    .arg(Arg::new("action")
+        .value_parser(["encrypt","decrypt"])
+    )
+    .arg(Arg::new("password").help("The data which should be encrypted or decrypted")
+    )
 
-.get_matches();
+    .get_matches();
 
     //We know what to do read the Cargo.toml file
 
