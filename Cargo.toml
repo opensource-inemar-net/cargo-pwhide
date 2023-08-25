@@ -1,6 +1,6 @@
 [package]
 name = "cargo-pwhide"
-version = "0.3.3"
+version = "0.3.4"
 edition = "2021"
 description ="pwhide encrypts passwords using the crate name as secret. This is marginal better then plain text. It is a tool for encryption and a lib to do runtime decryption-"
 
@@ -33,9 +33,9 @@ default=["cargo","lib"]
 
 
 [dependencies]
-clap = { version = "4.3.23", features = ["default"], optional = true}
-toml = { version = "0.7.6", features = ["parse"], optional = true}
-chacha20poly1305 = "0.10.1"
-sha2 = "0.10.7"
-base-62 = "0.1.1"
-anyhow = "1.0.75"
+clap = { version = "4.4.*", features = ["default"], optional = true}
+toml = { version = "0.7.*", features = ["parse"], optional = true}
+chacha20poly1305 = "0.10.*"
+sha2 = "0.10.*"
+base-62 = "0.1.*"
+anyhow = "1.0.*"
