@@ -34,7 +34,7 @@ Encryption is done using Chacha20poly1305 and base62 encoding
 # The lib provides a function to decrypt
 
 install wit with
-cargo-pwhide = {version="*", feature=["lib"]}
+cargo-pwhide = {version="*", feature=["lib"], default-features = false}
 This includes only the minimum number of dependencies
 
 
