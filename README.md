@@ -17,13 +17,14 @@ The solution contains of two parts:
 - lib to decrypt
 
 # Install the cargo subcommand with
-cargo install cargo-pwhide
+
+**cargo install cargo-pwhide**
 
 This allow to encrypt/decrypt password with
 
-cargo pwhide encryt **password**
+cargo pwhide encryt [password]
 or 
-cargo pwhide decryt **password**
+cargo pwhide decryt [password}
 
 This must be executed in a directory with a valid Cargo.toml file.
 The secret for encryption and decrpytion is the name of the crate.
@@ -33,19 +34,34 @@ Encryption is done using Chacha20poly1305 and base62 encoding
 
 # The lib provides a function to decrypt
 
-install wit with
-cargo-pwhide = {version="*", feature=["lib"], default-features = false}
-This includes only the minimum number of dependencies
+install it by adding to your Cargo.toml
+
+**cargo-pwhide = {version="*", feature=["lib"], default-features = false}**
 
 
-pwdecrypt (secret:Into<String>,enrypted_data:Into<String>) -> String
+This includes only the minimum number of dependencies. 
 
-This should be called with 
-pwdecrypt(env!("CARGO_PKG_NAME"),encrypted_password)
 
-To make live easier a macro is provided
 
-pwdecrypt(encrypted_password) which expands to 
+The easiet way to use it is by using the simple macro
+
+**use cargo_pwhide::pwdecrypt;**    
+**let clear_text=pwdecrypt!(encrypted_password);**
+
+
+The macro 
+
+pwdecrypt!(encrypted_password)  -> String expands to   
+pwdecrypt(env!("CARGO_PKG_NAME"),encrypted_password) -> String
+
+
+
+Instead of using the macro the decrypt function can be also
+called directly.
+
+**pwdecrypt (secret:Into<String>,enrypted_data:Into<String>) -> String**
+
+It should be called with 
 pwdecrypt(env!("CARGO_PKG_NAME"),encrypted_password)
 
 
